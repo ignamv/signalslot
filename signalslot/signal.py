@@ -106,8 +106,10 @@ class Signal(object):
         Disconnect a slot from a signal if it is connected else do nothing.
         """
         with self._slots_lk:
-            if self.is_connected(slot):
-                self._slots.pop(self._slots.index(slot))
+            try:
+                self._slots.remove(slot)
+            except ValueError:
+                pass
 
     def emit(self, **kwargs):
         """
