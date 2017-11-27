@@ -90,10 +90,6 @@ class Signal(object):
         """
         Connect a callback ``slot`` to this signal.
         """
-        if not isinstance(slot, BaseSlot) and \
-                inspect.getargspec(slot).keywords is None:
-            raise exceptions.SlotMustAcceptKeywords(self, slot)
-
         with self._slots_lk:
             if not self.is_connected(slot):
                 self._slots.append(slot)
